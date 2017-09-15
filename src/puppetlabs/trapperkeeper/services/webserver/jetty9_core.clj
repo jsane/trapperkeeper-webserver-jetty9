@@ -212,7 +212,8 @@
       :need (.setNeedClientAuth context true)
       :want (.setWantClientAuth context true)
       nil)
-    (when renegotiationAllowed
+    ;;; Working version
+    (when true 
       (.setRenegotiationAllowed context false))
     (when ssl-crl-path
       (.setCrlPath context ssl-crl-path)
