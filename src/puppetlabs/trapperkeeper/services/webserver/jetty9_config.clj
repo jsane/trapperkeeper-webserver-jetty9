@@ -69,6 +69,7 @@
 (def default-protocols ["TLSv1" "TLSv1.1" "TLSv1.2"])
 (def default-client-auth :need)
 (def default-allow-renegotiation false)
+(def default-disallow-renegotiation true)
 
 ;;;
 ;;; JMX
@@ -112,7 +113,7 @@
    (schema/optional-key :ssl-protocols)              (schema/either schema/Str [schema/Str])
    (schema/optional-key :client-auth)                schema/Str
    (schema/optional-key :ssl-crl-path)               schema/Str
-   (schema/optional-key :renegotiationAllowed)       schema/Bool
+   (schema/optional-key :disallow-renegotiation)      schema/Bool
    (schema/optional-key :jmx-enable)                 schema/Str
    (schema/optional-key :default-server)             schema/Bool
    (schema/optional-key :static-content)             [StaticContent]
@@ -177,6 +178,7 @@
    (schema/optional-key :ssl-crl-path) (schema/maybe schema/Str)
    :cipher-suites                      [schema/Str]
    (schema/optional-key :renegotiationAllowed)	 (schema/maybe schema/Bool)
+   (schema/optional-key :disallow-renegotiation)	 (schema/maybe schema/Bool)
    :protocols                          (schema/maybe [schema/Str])})
 
 (def WebserverSslConnector
@@ -391,7 +393,7 @@
             :cipher-suites           (get-cipher-suites-config config)
             :protocols               (get-ssl-protocols-config config)
             :client-auth             (get-client-auth! config)
-            :renegotiationAllowed    (and (:renegotiationAllowed config) default-allow-renegotiation)
+            :disallow-renegotiation   (or (:disallow-renegotiation config) default-disallow-renegotiation)
             :ssl-crl-path            (get-ssl-crl-path! config)})))
 
 (schema/defn ^:always-validate
