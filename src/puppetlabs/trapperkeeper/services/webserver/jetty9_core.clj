@@ -206,7 +206,8 @@
                   ;; that Jetty doesn't potentially remove one or more protocols
                   ;; that we want to be included.
                   (.setExcludeProtocols (into-array String []))
-                  (.setIncludeProtocols (into-array String protocols)))]
+                  (.setIncludeProtocols (into-array String protocols))
+                  (.setProvider (str "BCJSSE")))]
     (if (:trust-password keystore-config)
       (.setTrustStorePassword context (:trust-password keystore-config)))
     (case client-auth

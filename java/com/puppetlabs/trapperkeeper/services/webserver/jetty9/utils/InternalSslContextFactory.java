@@ -4,6 +4,7 @@ import org.eclipse.jetty.util.log.Log;
 import org.eclipse.jetty.util.log.Logger;
 import org.eclipse.jetty.util.security.CertificateUtils;
 import org.eclipse.jetty.util.ssl.SslContextFactory;
+import org.bouncycastle.jsse.provider.BouncyCastleJsseProvider;
 
 import java.io.File;
 import java.security.cert.CRL;
